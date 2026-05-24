@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es" ng-app="tiendaApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FakeStore - Tienda Online</title>
+
+    <!-- Bootstrap 4 -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+
+    <!-- CSS  -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body ng-controller="tiendaController as ctrl">
+    <div class="container-fluid">
+      <header class="row align-items-center p-3 bg-dark text-white">
+        <div class="col-md-6">
+          <h1>FakeStore</h1>
+        </div>
+        <div class="col-md-6 text-right">
+          <button class="btn btn-outline-light">
+            🛒 Carrito: ${{ ctrl.totalCarrito | number:2 }}
+          </button>
+        </div>
+      </header>
+
+      <!-- El Integrante 6 se encargara del Slider -->
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <div class="alert alert-info text-center">
+            [Slider de 3 imágenes - Pendiente]
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3 align-items-start">
+        <!-- Los productos son del integrante 2-->
+        <div class="col-md-6">
+          <h3>
+            Productos de la categoría: {{ ctrl.categoriaSeleccionada || 'Todas'
+            }}
+          </h3>
+        </div>
+
+        <!-- Del buscador se encargara el Integrante 3 -->
+        <div class="col-md-3">
+          <input
+            type="text"
+            class="form-control"
+            ng-model="ctrl.busqueda"
+            placeholder="Buscar producto"
+          />
+        </div>
+
+        <!-- Del filtro se encargara el Integrante 3 -->
+        <div class="col-md-3">
+          <select class="form-control" ng-model="ctrl.categoriaSeleccionada">
+            <option value="">Todas las categorías</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Los productos son del integrante 2-->
+      <div class="row" id="productosContainer">
+        <div class="alert alert-info text-center w-100">
+          [Productos - Pendiente]
+        </div>
+      </div>
+    </div>
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
