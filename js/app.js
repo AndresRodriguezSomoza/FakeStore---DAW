@@ -5,7 +5,8 @@ app.controller('tiendaController', ['$http', function($http) {
     var vm = this;
 
     // ========== Estas seran nuestras variables a utilizar ==========
-    vm.productos = [];              // Lista de productos
+    vm.productos = [];  
+    vm.categorias = [];          // Lista de productos
     vm.categoriaSeleccionada = "";  // Categoría seleccionada
     vm.busqueda = "";               // Texto de búsqueda
     vm.carrito = [];                // Carrito de compras
@@ -124,6 +125,12 @@ app.controller('tiendaController', ['$http', function($http) {
         vm.productos[19].category = "Exterior";
         vm.productos[19].image = "assets/img/difu.jpg";
 
+        //Llenar el dropdown
+        vm.categorias = [...new Set(
+            vm.productos.map(function(producto){
+                return producto.category;
+            })
+        )];
 
 
         console.log("Productos cargados correctamente");
