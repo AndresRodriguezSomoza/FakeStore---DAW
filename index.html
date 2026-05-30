@@ -13,6 +13,14 @@
 
     <!-- CSS  -->
     <link rel="stylesheet" href="css/style.css" />
+    <!-- SweetAlert2 CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
+    />
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body ng-controller="tiendaController as ctrl">
     <div class="container-fluid">
@@ -22,80 +30,76 @@
         </div>
         <div class="col-md-6 text-right">
           <button
-    class="btn btn-outline-light"
-    data-toggle="modal"
-    data-target="#carritoModal">
-
-    🛒 Carrito: ${{ ctrl.totalCarrito | number:2 }}
-
-</button>
-
-
+            class="btn btn-outline-light"
+            data-toggle="modal"
+            data-target="#carritoModal"
+          >
+            🛒 Carrito: ${{ ctrl.totalCarrito | number:2 }}
+          </button>
         </div>
       </header>
 
       <!-- El Integrante 6 se encargara del Slider -->
       <div class="row mt-3">
-  <div class="col-md-12">
+        <div class="col-md-12">
+          <div id="sliderAutos" class="carousel slide" data-ride="carousel">
+            <!-- Indicadores -->
+            <ol class="carousel-indicators">
+              <li
+                data-target="#sliderAutos"
+                data-slide-to="0"
+                class="active"
+              ></li>
+              <li data-target="#sliderAutos" data-slide-to="1"></li>
+              <li data-target="#sliderAutos" data-slide-to="2"></li>
+            </ol>
 
-    <div id="sliderAutos" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img
+                  src="assets/img/baner1.jpg"
+                  class="d-block w-100"
+                  alt="Motor LS"
+                />
+              </div>
 
-      <!-- Indicadores -->
-      <ol class="carousel-indicators">
-        <li data-target="#sliderAutos" data-slide-to="0" class="active"></li>
-        <li data-target="#sliderAutos" data-slide-to="1"></li>
-        <li data-target="#sliderAutos" data-slide-to="2"></li>
-      </ol>
+              <div class="carousel-item">
+                <img
+                  src="assets/img/baner2.jpg"
+                  class="d-block w-100"
+                  alt="Turbo Garrett"
+                />
+              </div>
 
-      <div class="carousel-inner">
+              <div class="carousel-item">
+                <img
+                  src="assets/img/baner3.jpg"
+                  class="d-block w-100"
+                  alt="Rines Volk TE37"
+                />
+              </div>
+            </div>
 
-        <div class="carousel-item active">
-          <img
-            src="assets/img/baner1.jpg"
-            class="d-block w-100"
-            alt="Motor LS">
+            <a
+              class="carousel-control-prev"
+              href="#sliderAutos"
+              role="button"
+              data-slide="prev"
+            >
+              <span class="carousel-control-prev-icon"></span>
+            </a>
+
+            <a
+              class="carousel-control-next"
+              href="#sliderAutos"
+              role="button"
+              data-slide="next"
+            >
+              <span class="carousel-control-next-icon"></span>
+            </a>
+          </div>
         </div>
-
-        <div class="carousel-item">
-          <img
-            src="assets/img/baner2.jpg"
-            class="d-block w-100"
-            alt="Turbo Garrett">
-        </div>
-
-        <div class="carousel-item">
-          <img
-            src="assets/img/baner3.jpg"
-            class="d-block w-100"
-            alt="Rines Volk TE37">
-        </div>
-
       </div>
-
-      <a
-        class="carousel-control-prev"
-        href="#sliderAutos"
-        role="button"
-        data-slide="prev">
-
-        <span class="carousel-control-prev-icon"></span>
-
-      </a>
-
-      <a
-        class="carousel-control-next"
-        href="#sliderAutos"
-        role="button"
-        data-slide="next">
-
-        <span class="carousel-control-next-icon"></span>
-
-      </a>
-
-    </div>
-
-  </div>
-</div>
 
       <div class="row mt-3 align-items-start">
         <!-- Los productos son del integrante 2-->
@@ -121,150 +125,108 @@
           <select class="form-control" ng-model="ctrl.categoriaSeleccionada">
             <option value="">Todas las categorías</option>
             <option
-            ng-repeat="categoria in ctrl.categorias"
-            value="{{categoria}}">
-          {{categoria}}
-          </option>
+              ng-repeat="categoria in ctrl.categorias"
+              value="{{categoria}}"
+            >
+              {{categoria}}
+            </option>
           </select>
         </div>
       </div>
 
       <!-- Los productos son del integrante 2-->
       <div class="row mt-4">
-
-  <div
-    class="col-md-4 col-lg-3 mb-4"
-    ng-repeat="
+        <div
+          class="col-md-4 col-lg-3 mb-4"
+          ng-repeat="
 producto in ctrl.productos
 | filter:{category:ctrl.categoriaSeleccionada}
 | filter:ctrl.busqueda
-"> <!--Estos son filtros para que busque por el dropdown y por nombre tambien-->
+"
+        >
+          <!--Estos son filtros para que busque por el dropdown y por nombre tambien-->
 
-    <div class="card h-100 shadow-sm producto-card">
-
-      <!-- Imagen -->
-      <img
-        ng-src="{{ producto.image }}"
-        class="card-img-top p-3"
-        alt="{{ producto.title }}"
-      />
-
-
-      <div class="card-body d-flex flex-column">
-
-       
-        <h6 class="card-title">
-          {{ producto.title | limitTo:40 }}
-        </h6>
-
-        <h4 class="text-success">
-          ${{ producto.price | number:2 }}
-        </h4>
-
-    
-        <small class="text-muted mb-3">
-          {{ producto.category }}
-        </small>
-
-       
-        <div class="mt-auto">
-
-          <button
-                class="btn btn-outline-primary btn-sm btn-block mb-2"
-                ng-click="ctrl.verDetalles(producto)"
-                data-toggle="modal"
-                data-target="#detalleModal"
-              >
-                Ver detalle
-              </button>
-
-          <button
-            class="btn btn-dark btn-sm btn-block"
-            ng-click="ctrl.agregarAlCarrito(producto)"
-          >
-            Agregar al carrito
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<div class="modal fade" id="detalleModal" tabindex="-1">
-
-  <div class="modal-dialog modal-lg">
-
-    <div class="modal-content">
-
-      <div class="modal-header">
-
-        <h5 class="modal-title">
-          {{ ctrl.productoSeleccionado.title }}
-        </h5>
-
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal">
-          &times;
-        </button>
-
-      </div>
-
-      <div class="modal-body">
-
-        <div class="row">
-
-          <div class="col-md-5">
-
+          <div class="card h-100 shadow-sm producto-card">
+            <!-- Imagen -->
             <img
-              ng-src="{{ ctrl.productoSeleccionado.image }}"
-              class="img-fluid">
+              ng-src="{{ producto.image }}"
+              class="card-img-top p-3"
+              alt="{{ producto.title }}"
+            />
 
+            <div class="card-body d-flex flex-column">
+              <h6 class="card-title">{{ producto.title | limitTo:40 }}</h6>
+
+              <h4 class="text-success">${{ producto.price | number:2 }}</h4>
+
+              <small class="text-muted mb-3"> {{ producto.category }} </small>
+
+              <div class="mt-auto">
+                <button
+                  class="btn btn-outline-primary btn-sm btn-block mb-2"
+                  ng-click="ctrl.verDetalles(producto)"
+                  data-toggle="modal"
+                  data-target="#detalleModal"
+                >
+                  Ver detalle
+                </button>
+
+                <button
+                  class="btn btn-dark btn-sm btn-block"
+                  ng-click="ctrl.agregarAlCarrito(producto)"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
           </div>
-
-          <div class="col-md-7">
-
-            <h3 class="text-success">
-              ${{ ctrl.productoSeleccionado.price | number:2 }}
-            </h3>
-
-            <h5>
-              {{ ctrl.productoSeleccionado.category }}
-            </h5>
-
-            <p>
-              {{ ctrl.productoSeleccionado.description }}
-            </p>
-
-          </div>
-
         </div>
-
       </div>
 
-      <div class="modal-footer">
+      <div class="modal fade" id="detalleModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">{{ ctrl.productoSeleccionado.title }}</h5>
 
-        <button
-          class="btn btn-success"
-          ng-click="ctrl.agregarAlCarrito(ctrl.productoSeleccionado)">
-          Agregar al carrito
-        </button>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
 
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-5">
+                  <img
+                    ng-src="{{ ctrl.productoSeleccionado.image }}"
+                    class="img-fluid"
+                  />
+                </div>
+
+                <div class="col-md-7">
+                  <h3 class="text-success">
+                    ${{ ctrl.productoSeleccionado.price | number:2 }}
+                  </h3>
+
+                  <h5>{{ ctrl.productoSeleccionado.category }}</h5>
+
+                  <p>{{ ctrl.productoSeleccionado.description }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button
+                class="btn btn-success"
+                ng-click="ctrl.agregarAlCarrito(ctrl.productoSeleccionado)"
+              >
+                Agregar al carrito
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-
     </div>
-
-  </div>
-
-</div>
-
 
     <!-- AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
@@ -274,73 +236,59 @@ producto in ctrl.productos
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <div class="modal fade" id="carritoModal">
-
-    <div class="modal-dialog">
-
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
-
-            <div class="modal-header">
-
-                <h5 class="modal-title">
-
-                    Carrito de Compras
-
-                </h5>
-
-                <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal">
-
-                    &times;
-
-                </button>
-
-            </div>
-
-            <div class="modal-body">
-
-                <div
-                    ng-repeat="producto in ctrl.carrito">
-
-                    <strong>
-                        {{ producto.title }}
-                    </strong>
-
-                    <br>
-
-                    ${{ producto.price | number:2 }}
-
-                    <hr>
-
+          <div class="modal-header">
+            <h5 class="modal-title">Carrito de Compras</h5>
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <div
+              ng-repeat="producto in ctrl.carrito track by $index"
+              class="carrito-item"
+            >
+              <div class="row align-items-center">
+                <div class="col-md-8">
+                  <strong>{{ producto.title }}</strong>
+                  <br />
+                  <span class="text-success"
+                    >${{ producto.price | number:2 }}</span
+                  >
                 </div>
-
-                <h4 class="text-success">
-
-                    Total:
-                    ${{ ctrl.totalCarrito | number:2 }}
-
-                </h4>
-
+                <div class="col-md-4 text-right">
+                  <button
+                    class="btn btn-danger btn-sm"
+                    ng-click="ctrl.eliminarDelCarrito($index)"
+                  >
+                    🗑️ Eliminar
+                  </button>
+                </div>
+              </div>
+              <hr ng-if="!$last" />
             </div>
-
-            <div class="modal-footer">
-
-                <button
-                    class="btn btn-success"
-                    ng-click="ctrl.pagar()">
-
-                    Pagar
-
-                </button>
-
+            <div
+              ng-if="ctrl.carrito.length === 0"
+              class="text-center text-muted"
+            >
+              🛒 El carrito está vacío
             </div>
-
+            <h4 class="text-success mt-3">
+              Total: ${{ ctrl.totalCarrito | number:2 }}
+            </h4>
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-success"
+              ng-click="ctrl.pagar()"
+              ng-disabled="ctrl.carrito.length === 0"
+            >
+              Pagar
+            </button>
+          </div>
         </div>
-
+      </div>
     </div>
-
-</div>
-
   </body>
 </html>

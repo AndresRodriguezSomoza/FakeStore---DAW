@@ -64,3 +64,41 @@ header {
 .carousel {
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
+
+.carrito-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    transition: all 0.3s;
+}
+
+.carrito-item:hover {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.carrito-item .btn-danger {
+    transition: all 0.2s;
+}
+
+.carrito-item .btn-danger:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 576px) {
+    .carrito-item .btn-danger {
+        margin-top: 8px;
+        width: 100%;
+    }
+    
+    .carrito-item .row {
+        text-align: center;
+    }
+    
+    .carrito-item .text-right {
+        text-align: center !important;
+    }
+}
+
+.swal2-popup {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
